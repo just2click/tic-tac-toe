@@ -1,7 +1,7 @@
 <div class="card">
-    <div class="card blue-grey darken-1">
+    <div class="card {{ player.class }}" [ngClass]="{'active': amIActive}">
         <div class="card-content white-text">
-            <span class="card-title">Player {{ player.name }} ({{ player.sign }})</span>
+            <span class="card-title center"><strong>Player {{ player.name }} ({{ player.sign }})</strong></span>
         </div>
     </div>
 </div>

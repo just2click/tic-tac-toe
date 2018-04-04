@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { IBoard } from './../../../../shared/model/board';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ITile } from '../../../../shared/model/tile';
 
 @Component({
@@ -7,17 +8,23 @@ import { ITile } from '../../../../shared/model/tile';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @Input () size: number;
+  private lastTileClicked: ITile;
+  @Input () board: IBoard;
+  @Input () gameOn: boolean;
   
-  private tiles: ITile[];
-  private x: number = 0;
-  private y: number = 0;
+  @Output() tileClicked: EventEmitter<ITile> = new EventEmitter<ITile>();
   
   constructor() { }
 
   ngOnInit() {
-    this.tiles = [];
-    this.tiles.length = this.size * this.size;
   }
 
+  onTileClick (tile: ITile) {
+    if (this.gameOn) {
+      if (tile.sign === '') {
+        this.lastTileClicked = tile;
+        this.tileClicked.emit(tile);
+      }      
+    }
+  }
 }

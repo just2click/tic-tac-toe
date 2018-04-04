@@ -1,5 +1,5 @@
 <div class="game-board">
-    <div class="tile" *ngFor="let i of tiles">
-
+    <div *ngFor="let row of board.tiles">
+        <board-tile *ngFor="let tile of row" [tileData]="tile" (click)="onTileClick(tile)" [ngClass]="{'game-on': gameOn}" [sign]="tile.sign"></board-tile>
     </div>
 </div>

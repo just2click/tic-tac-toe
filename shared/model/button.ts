@@ -1,6 +1,13 @@
-import { IMessage } from './message';
+import { messages } from './../../data/static-data';
 
 export interface IButton {
-    className: string;
-    message: IMessage;
+    title: string;
+}
+
+export class ButtonFactory {
+    public createButton (title: string): IButton {
+        return {
+            title: title
+        };
+    }
 }
