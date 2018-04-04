@@ -1,22 +1,25 @@
 import { messages } from './../../../../data/static-data';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'messages-bar',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, OnChanges {
   private message: string = messages['empty'];
 
-  @Input('messageKey')
-  set messageKey (key: string) {
-    this.message = messages[key];
-  }
+  @Input() messageKey: string;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges (changes: SimpleChanges) {
+    if (changes.messageKey.currentValue !== changes.messageKey.previousValue) {
+      this.message = messages[changes.messageKey.currentValue];
+    }
   }
 
 }

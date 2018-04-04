@@ -53,16 +53,19 @@ export class MainComponent implements OnInit {
 
   onTileClick (tile: ITile) {
     this.tilePlayed(tile, this.activePlayer);
-    // Switch players
-    this.activePlayer = this.activePlayerId === 1 ? this.player2 : this.player1;
-    this.activePlayerId = this.activePlayer.id;
-    this.messageKey = `player_${this.activePlayer.id}_turn`;
   }
 
   tilePlayed (tile: ITile, player: IPlayer) {
     this.gameBoard.tiles[tile.x][tile.y].sign = player.sign;
     if (this.hasAWinner()) {
       this.gameOverWin(this.activePlayer);
+      this.activePlayer = null;
+    } else {
+      // Switch players
+      this.activePlayer = this.activePlayerId === 1 ? this.player2 : this.player1;
+      this.activePlayerId = this.activePlayer.id;
+
+      this.messageKey = `player_${this.activePlayer.id}_turn`;
     }
   }
 
@@ -91,7 +94,7 @@ export class MainComponent implements OnInit {
 
   gameOverWin (winner: IPlayer) {
     this.button.title = 'Start';
-    this.messageKey = `player_${winner.id}_wins`;
+    this.messageKey = `player_${winner.id}_win`;
     this.gameOn = false;
   }
 

@@ -4,9 +4,16 @@ board {
 }
 
 .player-1 {
-    background: #5cb85c !important;
+    background: #5cb85c;
 }
 
 .player-2 {
     background: #5bc0de;
+}
+
+.placeholder {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    height: 7vh;
 }
