@@ -1,0 +1,29 @@
+.game-board {
+    align-content: space-around;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 33vh;
+    width: 33vh;
+    .tile {
+        border-radius: 3px;
+        box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+        height: 10vh;
+        width: 10vh;
+        font-size: 5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.game-on {
+    .tile {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

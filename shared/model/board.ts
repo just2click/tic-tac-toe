@@ -1,6 +1,6 @@
 import { ITile } from './tile';
 
 export interface IBoard {
-    tiles: { [key: number]: ITile };
+    tiles: ITile[];
     size: number;
 }

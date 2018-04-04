@@ -1,4 +1,3 @@
 export interface IMessage {
-    key: string;
-    text: string;
+    [key: string]: string;
 }
