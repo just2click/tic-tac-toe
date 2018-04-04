@@ -61,11 +61,15 @@ export class MainComponent implements OnInit {
       this.gameOverWin(this.activePlayer);
       this.activePlayer = null;
     } else {
-      // Switch players
-      this.activePlayer = this.activePlayerId === 1 ? this.player2 : this.player1;
-      this.activePlayerId = this.activePlayer.id;
+      if (this.noMovesLeft()) {
+        this.gameOverTie();
+      } else {
+        // Switch players
+        this.activePlayer = this.activePlayerId === 1 ? this.player2 : this.player1;
+        this.activePlayerId = this.activePlayer.id;
 
-      this.messageKey = `player_${this.activePlayer.id}_turn`;
+        this.messageKey = `player_${this.activePlayer.id}_turn`;
+      }
     }
   }
 
@@ -78,6 +82,18 @@ export class MainComponent implements OnInit {
     }
 
     return found;
+  }
+
+  noMovesLeft () {
+    for (let i = 0; i < this.gameBoard.tiles.length; i++) {
+      for (let j = 0; j < this.gameBoard.tiles[i].length; j++) {
+        if (this.gameBoard.tiles[i][j].sign === '') {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   checkBoardForWinner (winState: any) {
@@ -94,12 +110,14 @@ export class MainComponent implements OnInit {
 
   gameOverWin (winner: IPlayer) {
     this.button.title = 'Start';
+    this.activePlayer = null;
     this.messageKey = `player_${winner.id}_win`;
     this.gameOn = false;
   }
 
   gameOverTie () {
     this.button.title = 'Start';
+    this.activePlayer = null;
     this.messageKey = 'tie';
     this.gameOn = false;
   }
