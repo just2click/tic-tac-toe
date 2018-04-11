@@ -1,3 +1,4 @@
+import { GameService } from './../services/game.service';
 import { ButtonFactory } from './../../shared/model/button';
 import { BoardFactory } from './../../shared/model/board';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,7 +31,8 @@ import { PlayerFactory } from '../../shared/model/player';
   providers: [
     PlayerFactory,
     BoardFactory,
-    ButtonFactory
+    ButtonFactory,
+    GameService
   ],
   bootstrap: [AppComponent]
 })

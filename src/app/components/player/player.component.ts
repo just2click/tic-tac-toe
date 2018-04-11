@@ -17,7 +17,7 @@ export class PlayerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes['activePlayer']) {
+    if (changes['activePlayer'] && this.player) {
       this.amIActive = changes['activePlayer'].currentValue === this.player.id;
     }
   }

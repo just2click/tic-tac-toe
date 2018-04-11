@@ -1,5 +1,6 @@
+import { GameService } from './../../../services/game.service';
 import { ITile } from './../../../../shared/model/tile';
-import { messages, winStates } from './../../../../data/static-data';
+import { messages } from './../../../../data/static-data';
 import { ButtonFactory, IButton } from './../../../../shared/model/button';
 import { IBoard, BoardFactory } from './../../../../shared/model/board';
 
@@ -25,11 +26,15 @@ export class MainComponent implements OnInit {
 
   constructor (private playerFactory: PlayerFactory,
     private boardFactory: BoardFactory,
-    private buttonFactory: ButtonFactory) {
+    private buttonFactory: ButtonFactory,
+    private gameService: GameService) {
 
   }
 
   ngOnInit () {
+    this.player1 = this.playerFactory.createPlayer('one');
+    this.player2 = this.playerFactory.createPlayer('two');
+
     this.reset();
   }
 
@@ -44,8 +49,6 @@ export class MainComponent implements OnInit {
   }
 
   reset() {
-    this.player1 = this.playerFactory.createPlayer('one');
-    this.player2 = this.playerFactory.createPlayer('two');
     this.gameBoard = this.boardFactory.createBoard();
     this.button = this.buttonFactory.createButton('Start');
     this.gameOn = false;
@@ -57,7 +60,8 @@ export class MainComponent implements OnInit {
 
   tilePlayed (tile: ITile, player: IPlayer) {
     this.gameBoard.tiles[tile.x][tile.y].sign = player.sign;
-    if (this.hasAWinner()) {
+    this.gameBoard.usedTiles++;
+    if (this.gameService.hasAWinner(this.gameBoard)) {
       this.gameOverWin(this.activePlayer);
       this.activePlayer = null;
     } else {
@@ -71,17 +75,6 @@ export class MainComponent implements OnInit {
         this.messageKey = `player_${this.activePlayer.id}_turn`;
       }
     }
-  }
-
-  hasAWinner () {
-    let found = false;
-
-    for (const winState of winStates) {
-      found = this.checkBoardForWinner(winState);
-      if (found) { break; }
-    }
-
-    return found;
   }
 
   noMovesLeft () {
